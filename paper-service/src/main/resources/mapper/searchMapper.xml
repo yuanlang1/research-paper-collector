@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yl.paperservice.mapper.SearchMapper">
+    <insert id="addTask" useGeneratedKeys="true" keyProperty="id">
+        insert into search_task(user_id, search_word, keywords)
+        values(#{userId}, #{searchWord}, #{keywords})
+    </insert>
+
+    <select id="getRecentTasks" resultType="com.yl.paperservice.dto.RecentTaskDTO">
+        select id, search_word
+        from search_task
+        order by inserted_at desc
+        limit #{limit};
+    </select>
+</mapper>
