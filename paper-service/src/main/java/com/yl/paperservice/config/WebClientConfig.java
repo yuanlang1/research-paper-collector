@@ -13,6 +13,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class WebClientConfig {
     @Value("${arxiv.api}")
     private String baseUrl;
+
     @Bean
     public WebClient arxivWebClient() {
         return WebClient.builder()

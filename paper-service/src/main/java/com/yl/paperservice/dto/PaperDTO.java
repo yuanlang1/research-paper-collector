@@ -19,7 +19,7 @@ public class PaperDTO {
     private String id;
     private String title;
     private String summary;
-    private String published;
+    private String published; // publicationDate
     private String updated;
     private List<String> authors;
     private String pdfLink;

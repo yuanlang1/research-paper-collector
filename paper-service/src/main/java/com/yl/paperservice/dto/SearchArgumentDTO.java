@@ -10,7 +10,8 @@ import java.util.List;
  * @date 2025-11-06 19:36
  */
 @Data
-public class SearchDTO {
+public class SearchArgumentDTO
+{
     @JsonProperty("search_word")
     private String searchWord;
     private List<String> Keywords;

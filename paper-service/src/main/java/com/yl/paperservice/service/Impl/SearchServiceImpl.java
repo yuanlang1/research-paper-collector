@@ -1,7 +1,7 @@
 package com.yl.paperservice.service.Impl;
 
 import com.yl.paperservice.dto.PaperDTO;
-import com.yl.paperservice.dto.SearchDTO;
+import com.yl.paperservice.dto.SearchArgumentDTO;
 import com.yl.paperservice.entity.SearchTask;
 import com.yl.paperservice.mapper.SearchMapper;
 import com.yl.paperservice.service.SearchService;
@@ -12,18 +12,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.relational.core.sql.In;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author yl
@@ -51,10 +45,10 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public Long addTask(SearchDTO searchDTO) {
+    public Long addTask(SearchArgumentDTO searchArgumentDTO) {
         SearchTask task = new SearchTask()
-                .setSearchWord(searchDTO.getSearchWord())
-                .setKeywords(String.join(",", searchDTO.getKeywords()))
+                .setSearchWord(searchArgumentDTO.getSearchWord())
+                .setKeywords(String.join(",", searchArgumentDTO.getKeywords()))
                 .setUserId(0L);
         searchMapper.addTask(task);
         return task.getId();
@@ -62,7 +56,8 @@ public class SearchServiceImpl implements SearchService {
 
     @Override
     public void executeTask(Long id, String searchWord, List<String> keywords) {
-        System.out.println(searchWord);
+//        System.out.println(searchWord);
+        log.info(searchWord);
 
         Integer start = 0;
         Integer maxResult = 1;

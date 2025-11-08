@@ -1,7 +1,6 @@
 package com.yl.paperservice.mapper;
 
 import com.yl.paperservice.dto.RecentTaskDTO;
-import com.yl.paperservice.dto.SearchDTO;
 import com.yl.paperservice.entity.SearchTask;
 import org.apache.ibatis.annotations.Mapper;
 

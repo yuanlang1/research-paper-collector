@@ -7,6 +7,7 @@ import com.yl.aiservice.dto.KeywordResponse;
 import com.yl.aiservice.result.ServiceResponse;
 import com.yl.aiservice.service.AiService;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
@@ -20,10 +21,6 @@ import java.util.Map;
  */
 @Service
 public class AiServiceImpl implements AiService {
-    private final ChatClient chatClient;
-    public AiServiceImpl(ChatClient.Builder chatClientBuilder){
-        this.chatClient = chatClientBuilder.build();
-    }
     private static final String PROMPT_TEMPLATE = """
         You are an academic keyword extraction assistant.
 
@@ -44,6 +41,15 @@ public class AiServiceImpl implements AiService {
         - No additional text besides JSON
         - Use English terms only
         """;
+
+    private final ChatClient chatClient;
+    public AiServiceImpl(ChatClient.Builder chatClientBuilder){
+        this.chatClient = chatClientBuilder.build();
+    }
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @Override
     public List<String> getKeywords(String searchWord) throws JsonProcessingException {
         int topN = 3;
@@ -53,6 +59,6 @@ public class AiServiceImpl implements AiService {
                 .call()
                 .content();
 
-        return new ObjectMapper().readValue(content, new TypeReference<List<String>>() {});
+        return objectMapper.readValue(content, new TypeReference<List<String>>() {});
     }
 }

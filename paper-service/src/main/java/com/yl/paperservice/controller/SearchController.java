@@ -1,12 +1,11 @@
 package com.yl.paperservice.controller;
 
-import com.yl.paperservice.dto.SearchDTO;
-import com.yl.paperservice.result.ServiceResponse;
+import com.yl.paperservice.dto.SearchArgumentDTO;
 import com.yl.paperservice.service.SearchService;
 import com.yl.paperservice.dto.RecentTaskDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.relational.core.sql.In;
 import org.springframework.web.bind.annotation.*;
+import stark.dataworks.boot.web.ServiceResponse;
 
 import java.util.List;
 
@@ -20,17 +19,18 @@ public class SearchController {
     @Autowired
     private SearchService searchService;
 
+    // We need 2 pagination parameters: pageIndex & pageSize
     @GetMapping("/recentSearch")
     public ServiceResponse<List<RecentTaskDTO>> getRecentTask(@RequestParam("limitNum") int limitNum){
         List<RecentTaskDTO> recentTask = searchService.getRecentTask(limitNum);
-        return ServiceResponse.success(recentTask);
+        return ServiceResponse.buildSuccessResponse(recentTask);
     }
 
     @PostMapping("/submitSearch")
-    public ServiceResponse<Long> addTask(@RequestBody SearchDTO searchDTO){
-        Long id = searchService.addTask(searchDTO);
-        searchService.executeTask(id, searchDTO.getSearchWord(), searchDTO.getKeywords());
-        return ServiceResponse.success(id);
+    public ServiceResponse<Long> addTask(@RequestBody SearchArgumentDTO searchArgumentDTO){
+        Long id = searchService.addTask(searchArgumentDTO);
+        searchService.executeTask(id, searchArgumentDTO.getSearchWord(), searchArgumentDTO.getKeywords());
+        return ServiceResponse.buildSuccessResponse(id);
     }
 
 }

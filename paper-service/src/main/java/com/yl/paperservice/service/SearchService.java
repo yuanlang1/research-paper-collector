@@ -1,7 +1,7 @@
 package com.yl.paperservice.service;
 
 import com.yl.paperservice.dto.RecentTaskDTO;
-import com.yl.paperservice.dto.SearchDTO;
+import com.yl.paperservice.dto.SearchArgumentDTO;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
 public interface SearchService {
     List<RecentTaskDTO> getRecentTask(int limit);
 
-    Long addTask(SearchDTO searchDTO);
+    Long addTask(SearchArgumentDTO searchArgumentDTO);
     ;
 
     void executeTask(Long id, String searchWord, List<String> keywords);

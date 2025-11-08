@@ -28,6 +28,7 @@ import java.util.Map;
 public class AiController {
     @Autowired
     private AiService aiService;
+
     @GetMapping("keywords")
     public ServiceResponse<List<String>> getAiKeywords(@RequestParam("search_word") String searchWord) throws JsonProcessingException {
         return ServiceResponse.success(aiService.getKeywords(searchWord));
